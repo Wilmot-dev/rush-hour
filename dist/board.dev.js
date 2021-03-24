@@ -1,6 +1,8 @@
 "use strict";
 
-var _Database = _interopRequireDefault(require("./Database.js"));
+var _database = _interopRequireDefault(require("./database.js"));
+
+var _car = _interopRequireDefault(require("./car.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -28,19 +30,41 @@ function () {
       }
     }
   }, {
-    key: "generateHTML",
-    value: function generateHTML() {}
-  }, {
     key: "makeCarsArr",
     value: function makeCarsArr(boardString) {
       this.setBoard(boardString);
       var alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "o", "P", "Q", "R", "S", "T", "U", "V", "W", "x", "Y", "Z"];
+      var alreadyMade = [];
+      var carArray = [];
+      var start;
+      var end;
 
       for (var i = 0; i < 6; i++) {
         for (var j = 0; j < 6; j++) {
-          if (this.grid[i][j] === /A-Z/ && this.grid[i][j] !== "o" && this.grid[i][j] !== "x") {}
+          if (alphaArr.includes(this.grid[i][j]) && this.grid[i][j] !== "o" && this.grid[i][j] !== "x" && !alreadyMade.includes(this.grid[i][j])) {
+            alreadyMade.push(this.grid[i][j]);
+            start = "".concat(j, " ").concat(i);
+
+            for (var k = 0; k < 6; k++) {
+              for (var l = 0; l < 6; l++) {
+                if (this.grid[k][l] === this.grid[i][j] && "".concat(l, " ").concat(k) !== start) {
+                  end = "".concat(l, " ").concat(k);
+                }
+              }
+            }
+          } else if (this.grid[i][j] === "o" || alreadyMade.includes(this.grid[i][j])) {
+            continue;
+          } else if (this.grid[i][j] === "x") {
+            start = "".concat(j, " ").concat(i);
+            end = "".concat(j, " ").concat(i);
+          }
+
+          var car = new _car["default"](this.grid[i][j], start, end);
+          carArray.push(car);
         }
       }
+
+      return carArray;
     }
   }]);
 
@@ -48,7 +72,7 @@ function () {
 }();
 
 var board = new Board();
-var medium = new _Database["default"]();
+var medium = new _database["default"]();
 medium.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
 medium.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
 medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
@@ -65,3 +89,4 @@ medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
 console.log(medium);
 board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
 console.log(board);
+console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));

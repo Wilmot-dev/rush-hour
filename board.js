@@ -1,4 +1,5 @@
-import Database from "./Database.js";
+import Database from "./database.js";
+import Car from "./car.js";
 
 class Board {
   constructor() {
@@ -12,20 +13,36 @@ class Board {
     }
   }
 
-  generateHTML() {
-
-  }
-
   makeCarsArr(boardString) {
     this.setBoard(boardString);
     const alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "o", "P", "Q", "R", "S", "T", "U", "V", "W", "x", "Y", "Z"];
+    const alreadyMade = [];
+    const carArray = [];
+    let start;
+    let end;
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 6; j++) {
-        if (this.grid[i][j] === /A-Z/ && this.grid[i][j] !== "o" && this.grid[i][j] !== "x") {
-          
+        if (alphaArr.includes(this.grid[i][j]) && this.grid[i][j] !== "o" && this.grid[i][j] !== "x" && !alreadyMade.includes(this.grid[i][j])) {
+          alreadyMade.push(this.grid[i][j]);
+          start = `${j} ${i}`;
+          for (let k = 0; k < 6; k++) {
+            for (let l = 0; l < 6; l++) {
+              if (this.grid[k][l] === this.grid[i][j] && `${l} ${k}` !== start) {
+                end = `${l} ${k}`;
+              }
+            }
+          }
+        } else if (this.grid[i][j] === "o" || alreadyMade.includes(this.grid[i][j])){
+          continue;
+        } else if (this.grid[i][j] === "x" ) {
+          start = `${j} ${i}`;
+          end = `${j} ${i}`;
         }
+        const car = new Car(this.grid[i][j], start, end);
+        carArray.push(car);
       } 
     }
+    return carArray;
   }
 }
 
@@ -50,3 +67,4 @@ medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
 console.log(medium);
 board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
 console.log(board);
+console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
