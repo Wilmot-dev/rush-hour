@@ -1,0 +1,13 @@
+.board {
+  padding: 10px;
+  .main-board {
+    display: grid;
+    background-color: gray;
+    gap: 5px;
+    height: 600px;
+    width: 600px;
+    padding: 5px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}

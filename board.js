@@ -2,8 +2,9 @@ import Database from "./database.js";
 import Car from "./car.js";
 
 class Board {
-  constructor() {
+  constructor(boardString) {
     this.grid = new Array(6).fill(new Array(6));
+    this.carsArr = this.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
   }
 
   setBoard(boardString) {
@@ -20,8 +21,12 @@ class Board {
     const carArray = [];
     let start;
     let end;
+
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 6; j++) {
+        if(this.grid[i][j] === "o" || alreadyMade.includes(this.grid[i][j])){
+          continue;
+        } 
         if (alphaArr.includes(this.grid[i][j]) && this.grid[i][j] !== "o" && this.grid[i][j] !== "x" && !alreadyMade.includes(this.grid[i][j])) {
           alreadyMade.push(this.grid[i][j]);
           start = `${j} ${i}`;
@@ -32,8 +37,6 @@ class Board {
               }
             }
           }
-        } else if (this.grid[i][j] === "o" || alreadyMade.includes(this.grid[i][j])){
-          continue;
         } else if (this.grid[i][j] === "x" ) {
           start = `${j} ${i}`;
           end = `${j} ${i}`;
@@ -42,11 +45,24 @@ class Board {
         carArray.push(car);
       } 
     }
+
     return carArray;
   }
+
+  generateHTML() {
+    const carshtml = this.carsArr.map(car => {
+      return `<div style="background-color:${car.colour};" class="car-${car.orientation}"></div>`;
+    });
+    const boardhtml = document.querySelector(".board").innerHTML = `
+      <div class="main-board">
+        ${carshtml.join("")}
+      </div>
+    `;
+  }
+
 }
 
-const board = new Board;
+
 
 
 const medium = new Database();
@@ -64,7 +80,10 @@ medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
 medium.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
 medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
 
-console.log(medium);
-board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+const board = new Board(medium[0]);
+
+//console.log(medium);
+//board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
 console.log(board);
-console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
+//console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
+board.generateHTML();

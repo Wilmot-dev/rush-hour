@@ -21,6 +21,8 @@ function () {
     this.start = start;
     this.end = end;
     this.orientation = this.setOrientation(start, end);
+    this.colour = this.setColour();
+    this.type = this.setType();
   }
 
   _createClass(Car, [{
@@ -35,12 +37,40 @@ function () {
         return "horizontal";
       }
     }
+  }, {
+    key: "setColour",
+    value: function setColour() {
+      switch (this.letter) {
+        case "A":
+          return "#e63946";
+
+        case "x":
+          return "#1d3557";
+
+        default:
+          return "#a8dadc";
+      }
+    }
+  }, {
+    key: "setType",
+    value: function setType() {
+      switch (this.letter) {
+        case "A":
+          return "main-car";
+
+        case "x":
+          return "wall";
+
+        default:
+          return "other-car";
+      }
+    }
   }]);
 
   return Car;
-}();
+}(); //const newCar = new Car("I", "0 0", "0 1");
+//console.log(newCar);
 
-var newCar = new Car("I", "0 0", "0 1");
-console.log(newCar);
+
 var _default = Car;
 exports["default"] = _default;

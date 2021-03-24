@@ -17,7 +17,7 @@ function () {
   function Database() {
     _classCallCheck(this, Database);
 
-    this.database = new Array();
+    this.database = [];
   }
 
   _createClass(Database, [{

@@ -15,10 +15,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Board =
 /*#__PURE__*/
 function () {
-  function Board() {
+  function Board(boardString) {
     _classCallCheck(this, Board);
 
     this.grid = new Array(6).fill(new Array(6));
+    this.carsArr = this.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
   }
 
   _createClass(Board, [{
@@ -41,6 +42,10 @@ function () {
 
       for (var i = 0; i < 6; i++) {
         for (var j = 0; j < 6; j++) {
+          if (this.grid[i][j] === "o" || alreadyMade.includes(this.grid[i][j])) {
+            continue;
+          }
+
           if (alphaArr.includes(this.grid[i][j]) && this.grid[i][j] !== "o" && this.grid[i][j] !== "x" && !alreadyMade.includes(this.grid[i][j])) {
             alreadyMade.push(this.grid[i][j]);
             start = "".concat(j, " ").concat(i);
@@ -52,8 +57,6 @@ function () {
                 }
               }
             }
-          } else if (this.grid[i][j] === "o" || alreadyMade.includes(this.grid[i][j])) {
-            continue;
           } else if (this.grid[i][j] === "x") {
             start = "".concat(j, " ").concat(i);
             end = "".concat(j, " ").concat(i);
@@ -66,12 +69,19 @@ function () {
 
       return carArray;
     }
+  }, {
+    key: "generateHTML",
+    value: function generateHTML() {
+      var carshtml = this.carsArr.map(function (car) {
+        return "<div style=\"background-color:".concat(car.colour, ";\" class=\"car-").concat(car.orientation, "\"></div>");
+      });
+      var boardhtml = document.querySelector(".board").innerHTML = "\n      <div class=\"main-board\">\n        ".concat(carshtml.join(""), "\n      </div>\n    ");
+    }
   }]);
 
   return Board;
 }();
 
-var board = new Board();
 var medium = new _database["default"]();
 medium.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
 medium.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
@@ -86,7 +96,9 @@ medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
 medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
 medium.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
 medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
-console.log(medium);
-board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-console.log(board);
-console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
+var board = new Board(medium[0]); //console.log(medium);
+//board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+
+console.log(board); //console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
+
+board.generateHTML();

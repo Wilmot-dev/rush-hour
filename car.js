@@ -4,6 +4,8 @@ class Car {
     this.start = start;
     this.end = end;
     this.orientation = this.setOrientation(start, end);
+    this.colour = this.setColour();
+    this.type = this.setType();
   }
 
   setOrientation(start, end) {
@@ -16,9 +18,31 @@ class Car {
     }
   }
 
+  setColour() {
+    switch (this.letter) {
+      case "A":
+        return "#e63946";
+      case "x":
+        return "#1d3557";
+      default:
+        return "#a8dadc";  
+    }
+  }
+ 
+  setType() {
+    switch (this.letter) {
+      case "A":
+        return "main-car";
+      case "x":
+        return "wall";
+      default:
+        return "other-car";  
+    }
+  }
+
 }
-const newCar = new Car("I", "0 0", "0 1");
-console.log(newCar);
+//const newCar = new Car("I", "0 0", "0 1");
+//console.log(newCar);
 
 
 export default Car;

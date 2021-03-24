@@ -1,6 +1,6 @@
 class Database {
   constructor() {
-    this.database = new Array;
+    this.database = [];
   }
 
   push(item) {
