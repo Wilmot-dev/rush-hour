@@ -87,10 +87,11 @@ function () {
         var iscar = "";
 
         if (car.type !== "wall") {
+          // iscar = `onclick="play(this)"`;
           iscar = "car";
         }
 
-        return "\n      <div style=\"background-color:".concat(car.colour, "; grid-row: ").concat(rowstart, " / ").concat(rowend, "; grid-column: ").concat(colstart, " / ").concat(colend, ";\" class=\"car-").concat(car.orientation, " ").concat(car.type, " ").concat(iscar, "\"></div>\n      ");
+        return "\n      <div name=\"".concat(car.letter, "\" style=\"background-color:").concat(car.colour, "; grid-row: ").concat(rowstart, " / ").concat(rowend, "; grid-column: ").concat(colstart, " / ").concat(colend, ";\" class=\" ").concat(iscar, " car-").concat(car.orientation, " ").concat(car.type, " \"></div>\n      ");
       });
       var boardhtml = document.querySelector(".board").innerHTML = "\n      <div class=\"main-board\">\n        ".concat(carshtml.join(""), "\n      </div>\n    ");
     }

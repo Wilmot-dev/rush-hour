@@ -59,10 +59,11 @@ class Board {
       const colend = parseInt(car.end.split(" ")[1]) + 2;
       let iscar = "";
       if (car.type !== "wall") {
+        // iscar = `onclick="play(this)"`;
         iscar = "car";
       }
       return `
-      <div style="background-color:${car.colour}; grid-row: ${rowstart} / ${rowend}; grid-column: ${colstart} / ${colend};" class="car-${car.orientation} ${car.type} ${iscar}"></div>
+      <div name="${car.letter}" style="background-color:${car.colour}; grid-row: ${rowstart} / ${rowend}; grid-column: ${colstart} / ${colend};" class=" ${iscar} car-${car.orientation} ${car.type} "></div>
       `;
     });
     const boardhtml = document.querySelector(".board").innerHTML = `
