@@ -11,9 +11,11 @@ class Car {
   setOrientation(start, end) {
     start.split(" ");
     end.split(" ");
-    if (start[0] === end[0]) {
+    if (this.letter === "x") {
+      return "wall";
+    } else if (start[0] === end[0]){
       return "vertical";
-    } else {
+    }else {
       return "horizontal";
     }
   }

@@ -1,6 +1,9 @@
 "use strict";
 
-var _database = _interopRequireDefault(require("./database.js"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
 var _car = _interopRequireDefault(require("./car.js"));
 
@@ -18,22 +21,26 @@ function () {
   function Board(boardString) {
     _classCallCheck(this, Board);
 
-    this.grid = new Array(6).fill(new Array(6));
-    this.carsArr = this.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+    this.boardString = boardString;
+    this.grid = this.setBoard();
+    this.carsArr = this.makeCarsArr();
   }
 
   _createClass(Board, [{
     key: "setBoard",
-    value: function setBoard(boardString) {
+    value: function setBoard() {
+      var grid = new Array(6).fill(new Array(6));
+
       for (var i = 0; i < 6; i++) {
-        var variable = boardString.substring(i * 6, i * 6 + 6);
-        this.grid[i] = variable.split("");
+        var variable = this.boardString.substring(i * 6, i * 6 + 6);
+        grid[i] = variable.split("");
       }
+
+      return grid;
     }
   }, {
     key: "makeCarsArr",
-    value: function makeCarsArr(boardString) {
-      this.setBoard(boardString);
+    value: function makeCarsArr() {
       var alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "o", "P", "Q", "R", "S", "T", "U", "V", "W", "x", "Y", "Z"];
       var alreadyMade = [];
       var carArray = [];
@@ -48,18 +55,18 @@ function () {
 
           if (alphaArr.includes(this.grid[i][j]) && this.grid[i][j] !== "o" && this.grid[i][j] !== "x" && !alreadyMade.includes(this.grid[i][j])) {
             alreadyMade.push(this.grid[i][j]);
-            start = "".concat(j, " ").concat(i);
+            start = "".concat(i, " ").concat(j);
 
             for (var k = 0; k < 6; k++) {
               for (var l = 0; l < 6; l++) {
                 if (this.grid[k][l] === this.grid[i][j] && "".concat(l, " ").concat(k) !== start) {
-                  end = "".concat(l, " ").concat(k);
+                  end = "".concat(k, " ").concat(l);
                 }
               }
             }
           } else if (this.grid[i][j] === "x") {
-            start = "".concat(j, " ").concat(i);
-            end = "".concat(j, " ").concat(i);
+            start = "".concat(i, " ").concat(j);
+            end = "".concat(i, " ").concat(j);
           }
 
           var car = new _car["default"](this.grid[i][j], start, end);
@@ -73,32 +80,46 @@ function () {
     key: "generateHTML",
     value: function generateHTML() {
       var carshtml = this.carsArr.map(function (car) {
-        return "<div style=\"background-color:".concat(car.colour, ";\" class=\"car-").concat(car.orientation, "\"></div>");
+        var rowstart = parseInt(car.start.split(" ")[0]) + 1;
+        var rowend = parseInt(car.end.split(" ")[0]) + 2;
+        var colstart = parseInt(car.start.split(" ")[1]) + 1;
+        var colend = parseInt(car.end.split(" ")[1]) + 2;
+        var iscar = "";
+
+        if (car.type !== "wall") {
+          iscar = "car";
+        }
+
+        return "\n      <div style=\"background-color:".concat(car.colour, "; grid-row: ").concat(rowstart, " / ").concat(rowend, "; grid-column: ").concat(colstart, " / ").concat(colend, ";\" class=\"car-").concat(car.orientation, " ").concat(car.type, " ").concat(iscar, "\"></div>\n      ");
       });
       var boardhtml = document.querySelector(".board").innerHTML = "\n      <div class=\"main-board\">\n        ".concat(carshtml.join(""), "\n      </div>\n    ");
     }
   }]);
 
   return Board;
-}();
+}(); // const database = new Database();
+// const medium = new Database();
+// medium.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+// medium.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
+// medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
+// medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
+// medium.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
+// medium.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
+// medium.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
+// medium.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
+// medium.push("BBBCCNDDoxMNJAAoMOJoKFFOGGKLooxIILoo");
+// medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
+// medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
+// medium.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
+// medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
+// const board = new Board(medium[0]);
+// // const board = new Board(database.medium());
+// //console.log(medium);
+// //board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+// console.log(board);
+// //console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
+// board.generateHTML();
 
-var medium = new _database["default"]();
-medium.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-medium.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
-medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
-medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
-medium.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
-medium.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
-medium.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
-medium.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
-medium.push("BBBCCNDDoxMNJAAoMOJoKFFOGGKLooxIILoo");
-medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
-medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
-medium.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
-medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
-var board = new Board(medium[0]); //console.log(medium);
-//board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
 
-console.log(board); //console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
-
-board.generateHTML();
+var _default = Board;
+exports["default"] = _default;

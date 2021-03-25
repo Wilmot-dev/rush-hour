@@ -18,12 +18,31 @@ function () {
     _classCallCheck(this, Database);
 
     this.database = [];
+    this.medium = this.setMedium();
   }
 
   _createClass(Database, [{
     key: "push",
     value: function push(item) {
       this.database.push(item);
+    }
+  }, {
+    key: "setMedium",
+    value: function setMedium() {
+      this.database.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+      this.database.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
+      this.database.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
+      this.database.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
+      this.database.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
+      this.database.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
+      this.database.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
+      this.database.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
+      this.database.push("BBBCCNDDoxMNJAAoMOJoKFFOGGKLooxIILoo");
+      this.database.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
+      this.database.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
+      this.database.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
+      this.database.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
+      return this.database;
     }
   }]);
 
