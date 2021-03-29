@@ -1,8 +1,6 @@
 import Board from "./board.js";
 import Database from "./database.js";
 
-
-
 const medium = new Database();
 const game = new Board(medium.medium[7]);
 console.log(game);

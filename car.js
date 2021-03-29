@@ -14,9 +14,9 @@ class Car {
     if (this.letter === "x") {
       return "wall";
     } else if (start[0] === end[0]){
-      return "vertical";
-    }else {
       return "horizontal";
+    }else {
+      return "vertical";
     }
   }
 

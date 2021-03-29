@@ -10,6 +10,7 @@ class Board {
   }
 
   setBoard() {
+    //console.log("called");
     const grid = new Array(6).fill(new Array(6));
     for (let i = 0; i < 6; i++) {
       const variable = this.boardString.substring(i * 6, i * 6 + 6);
@@ -53,6 +54,7 @@ class Board {
   }
 
   generateHTML() {
+
     const carshtml = this.carsArr.map(car => {
       const rowstart = parseInt(car.start.split(" ")[0]) + 1;
       const rowend = parseInt(car.end.split(" ")[0]) + 2;
@@ -62,46 +64,102 @@ class Board {
       if (car.type !== "wall") {
         iscar = "car";
       }
-
       return `
-      <div style="background-color:${car.colour}; grid-row: ${rowstart} / ${rowend}; grid-column: ${colstart} / ${colend};" class="${car.letter} ${iscar} ${car.type} ${car.orientation}"></div>
+      <div tabindex="-1" style="background-color:${car.colour}; grid-row: ${rowstart} / ${rowend}; grid-column: ${colstart} / ${colend};" class="${car.letter} ${iscar} ${car.type} ${car.orientation}"></div>
       `;
     });
+
     const boardhtml = document.querySelector(".board").innerHTML = `
       <div class="main-board">
         ${carshtml.join("")}
       </div>
     `;
     this.addEventListeners();
+
   }
 
   addEventListeners() {
     const cars = document.querySelectorAll(".car");
     for (let i = 0; i < cars.length; i++) {
       const car = cars[i];
-      car.addEventListener("click", (event) => {this.setMovingCar(event)}); 
       car.addEventListener("keydown", (event) => {this.move(event)});
+      car.addEventListener("click", (event) => {this.setMovingCar(event.target)}); 
     }
   }
 
   move(event) {
+    console.log("hello");
+    console.log(this.movingCar.orientation);
+
     //check orientation
     if (this.movingCar.orientation === "vertical") {
       //only move up/down left/right
-      if (event.code === "ArrowDown") {
+      const col = parseInt(this.movingCar.start.split(" ")[1]);
+      const rowstart = parseInt(this.movingCar.start.split(" ")[0]);
+      const rowend = parseInt(this.movingCar.end.split(" ")[0]);
+
+      if (event.code === "ArrowDown" && rowend !== 5) {
         //check if can move that way
         //let the block move that way
+        if (this.grid[rowend + 1][col] === "o") {
+          this.grid[rowend + 1][col] = this.movingCar.letter;
+          this.grid[rowstart][col] = "o";
+          this.carsArr = this.makeCarsArr();
+          this.generateHTML();
+        } else {
+          console.log("sorry but you cant move there1");
+        }
+        
       } else if (event.code === "ArrowUp") {
 
+      } else {
+        console.log("sorry but you cant move there2");
       }
     }
-    
+
+    if (this.movingCar.orientation === "horizontal") {
+      //only move up/down left/right
+      const colstart = parseInt(this.movingCar.start.split(" ")[1]);
+      const colend = parseInt(this.movingCar.end.split(" ")[1]);
+      const row = parseInt(this.movingCar.start.split(" ")[0]);
+
+      if (event.code === "ArrowRight" && colend !== 5) {
+        //check if can move that way
+        //let the block move that way
+        if (this.grid[row][colend + 1] === "o") {
+          this.grid[row][colend + 1] = this.movingCar.letter;
+          this.grid[row][colstart] = "o";
+          this.carsArr = this.makeCarsArr();
+          this.generateHTML();
+        } else {
+          console.log("sorry but you cant move there3");
+        }
+        
+      } else if (event.code === "ArrowLeft" && colstart !== 0 ) {
+
+        if (this.grid[row][colstart - 1] === "o") {
+          console.table(this.grid);
+          this.grid[row][colstart - 1] = this.movingCar.letter;
+          this.grid[row][colend] = "o";
+          this.carsArr = this.makeCarsArr();
+          this.generateHTML();
+        } else {
+          console.log("sorry but you cant move there4");
+        }
+
+      } else {
+        console.log("sorry but you cant move there5");
+      }  
+    }
+    const movedCar = document.querySelector(`.${this.movingCar.letter}`);
+    this.setMovingCar(movedCar);
+    movedCar.focus();
   }
 
-  setMovingCar(event) {
+  setMovingCar(htmlElement) {
     //figure out which div it is
-    const carLetter = event.target.classList[0];
-    // console.log(event.target.classList[0]);
+    const carLetter = htmlElement.classList[0];
+    console.log(htmlElement.classList[0]);
     // console.log(this.carsArr);
     // console.log(this);
     this.carsArr.forEach(car => {
