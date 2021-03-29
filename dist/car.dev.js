@@ -70,9 +70,7 @@ function () {
   }]);
 
   return Car;
-}(); //const newCar = new Car("I", "0 0", "0 1");
-//console.log(newCar);
-
+}();
 
 var _default = Car;
 exports["default"] = _default;

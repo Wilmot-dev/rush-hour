@@ -22,6 +22,7 @@ function () {
     _classCallCheck(this, Board);
 
     this.boardString = boardString;
+    this.movingCar = {};
     this.grid = this.setBoard();
     this.carsArr = this.makeCarsArr();
   }
@@ -87,40 +88,62 @@ function () {
         var iscar = "";
 
         if (car.type !== "wall") {
-          // iscar = `onclick="play(this)"`;
           iscar = "car";
         }
 
-        return "\n      <div name=\"".concat(car.letter, "\" style=\"background-color:").concat(car.colour, "; grid-row: ").concat(rowstart, " / ").concat(rowend, "; grid-column: ").concat(colstart, " / ").concat(colend, ";\" class=\" ").concat(iscar, " car-").concat(car.orientation, " ").concat(car.type, " \"></div>\n      ");
+        return "\n      <div style=\"background-color:".concat(car.colour, "; grid-row: ").concat(rowstart, " / ").concat(rowend, "; grid-column: ").concat(colstart, " / ").concat(colend, ";\" class=\"").concat(car.letter, " ").concat(iscar, " ").concat(car.type, " ").concat(car.orientation, "\"></div>\n      ");
       });
       var boardhtml = document.querySelector(".board").innerHTML = "\n      <div class=\"main-board\">\n        ".concat(carshtml.join(""), "\n      </div>\n    ");
+      this.addEventListeners();
+    }
+  }, {
+    key: "addEventListeners",
+    value: function addEventListeners() {
+      var _this = this;
+
+      var cars = document.querySelectorAll(".car");
+
+      for (var i = 0; i < cars.length; i++) {
+        var car = cars[i];
+        car.addEventListener("click", function (event) {
+          _this.setMovingCar(event);
+        });
+        car.addEventListener("keydown", function (event) {
+          _this.move(event);
+        });
+      }
+    }
+  }, {
+    key: "move",
+    value: function move(event) {
+      //check orientation
+      if (this.movingCar.orientation === "vertical") {
+        //only move up/down left/right
+        if (event.code === "ArrowDown") {//check if can move that way
+          //let the block move that way
+        } else if (event.code === "ArrowUp") {}
+      }
+    }
+  }, {
+    key: "setMovingCar",
+    value: function setMovingCar(event) {
+      var _this2 = this;
+
+      //figure out which div it is
+      var carLetter = event.target.classList[0]; // console.log(event.target.classList[0]);
+      // console.log(this.carsArr);
+      // console.log(this);
+
+      this.carsArr.forEach(function (car) {
+        if (carLetter === car.letter) {
+          _this2.movingCar = car;
+        }
+      });
     }
   }]);
 
   return Board;
-}(); // const database = new Database();
-// const medium = new Database();
-// medium.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-// medium.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
-// medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
-// medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
-// medium.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
-// medium.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
-// medium.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
-// medium.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
-// medium.push("BBBCCNDDoxMNJAAoMOJoKFFOGGKLooxIILoo");
-// medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
-// medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
-// medium.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
-// medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
-// const board = new Board(medium[0]);
-// // const board = new Board(database.medium());
-// //console.log(medium);
-// //board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-// console.log(board);
-// //console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
-// board.generateHTML();
-
+}();
 
 var _default = Board;
 exports["default"] = _default;

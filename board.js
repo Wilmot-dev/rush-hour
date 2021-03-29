@@ -1,9 +1,10 @@
-//import Database from "./database.js";
 import Car from "./car.js";
+
 
 class Board {
   constructor(boardString) {
     this.boardString = boardString;
+    this.movingCar = {};
     this.grid = this.setBoard(); 
     this.carsArr = this.makeCarsArr();
   }
@@ -59,11 +60,11 @@ class Board {
       const colend = parseInt(car.end.split(" ")[1]) + 2;
       let iscar = "";
       if (car.type !== "wall") {
-        // iscar = `onclick="play(this)"`;
         iscar = "car";
       }
+
       return `
-      <div name="${car.letter}" style="background-color:${car.colour}; grid-row: ${rowstart} / ${rowend}; grid-column: ${colstart} / ${colend};" class=" ${iscar} car-${car.orientation} ${car.type} "></div>
+      <div style="background-color:${car.colour}; grid-row: ${rowstart} / ${rowend}; grid-column: ${colstart} / ${colend};" class="${car.letter} ${iscar} ${car.type} ${car.orientation}"></div>
       `;
     });
     const boardhtml = document.querySelector(".board").innerHTML = `
@@ -71,38 +72,45 @@ class Board {
         ${carshtml.join("")}
       </div>
     `;
+    this.addEventListeners();
   }
 
+  addEventListeners() {
+    const cars = document.querySelectorAll(".car");
+    for (let i = 0; i < cars.length; i++) {
+      const car = cars[i];
+      car.addEventListener("click", (event) => {this.setMovingCar(event)}); 
+      car.addEventListener("keydown", (event) => {this.move(event)});
+    }
+  }
 
+  move(event) {
+    //check orientation
+    if (this.movingCar.orientation === "vertical") {
+      //only move up/down left/right
+      if (event.code === "ArrowDown") {
+        //check if can move that way
+        //let the block move that way
+      } else if (event.code === "ArrowUp") {
+
+      }
+    }
+    
+  }
+
+  setMovingCar(event) {
+    //figure out which div it is
+    const carLetter = event.target.classList[0];
+    // console.log(event.target.classList[0]);
+    // console.log(this.carsArr);
+    // console.log(this);
+    this.carsArr.forEach(car => {
+      if (carLetter === car.letter) {
+        this.movingCar = car;
+      }
+    });
+  };
 
 }
-
-
-
-
-// const database = new Database();
-// const medium = new Database();
-// medium.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-// medium.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
-// medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
-// medium.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
-// medium.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
-// medium.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
-// medium.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
-// medium.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
-// medium.push("BBBCCNDDoxMNJAAoMOJoKFFOGGKLooxIILoo");
-// medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
-// medium.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
-// medium.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
-// medium.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
-
-// const board = new Board(medium[0]);
-// // const board = new Board(database.medium());
-
-// //console.log(medium);
-// //board.setBoard("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-// console.log(board);
-// //console.log(board.makeCarsArr("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM"));
-// board.generateHTML();
 
 export default Board;

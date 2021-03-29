@@ -43,8 +43,6 @@ class Car {
   }
 
 }
-//const newCar = new Car("I", "0 0", "0 1");
-//console.log(newCar);
 
 
 export default Car;
