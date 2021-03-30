@@ -9,16 +9,71 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #eae2b79a;
 }
 
-h1 {
+h2 {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   color: #457b9d;
   font-weight: bold;
-  text-shadow: 2px 2px rgb(241, 241, 241);
+  text-shadow: 2px 2px rgb(212, 212, 212);
   font-size: 40px;
   padding: 30px;
+}
+
+.hide {
+  display: none;
+}
+
+#home {
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  text-align: center;
+  width: 70%;
+  * {
+    padding: 30px;
+  }
+  h1 {
+    grid-column: 1 / 6;
+    font-size: 70px;
+    margin-top: 60px;
+    font-weight: 750;
+    color: #94c0c2;
+    text-shadow: 2px 2px gray;
+  }
+  h4 {
+    grid-column: 1 / 6;
+    padding-bottom: 10px;
+    font-size: 40px;
+    color: #343A40;
+  }
+  p {
+    grid-column: 1 / 6;
+    color: #343A40;
+    font-size: 20px;
+  }
+  button {
+    padding: 20px;
+    margin: 10px;
+    color: #f1faee;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+  #easy {
+    grid-column: 2 / 3;
+    background-color: #e63946;
+  }
+  #medium {
+    grid-column: 3 / 4;
+    background-color: #457b9d;
+  }
+  #hard {
+    grid-column: 4 / 5;
+    background-color: #1d3557;
+  }
+
 }
 
 .board {
@@ -39,6 +94,7 @@ h1 {
     align-self: center;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
+    text-align: center;
 
     .main-car {
       margin: 10px;
@@ -54,6 +110,16 @@ h1 {
 
     .wall {
       border: solid #343A40 2px;
+    }
+
+    p {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 70px;
+      grid-row: 3 / 5;
+      grid-column: 1 / 7;
+      padding: 50px;
+      color: #f1faee;
+      background-color: #e63946;
     }
     
   }

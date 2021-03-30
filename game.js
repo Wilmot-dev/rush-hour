@@ -1,36 +1,34 @@
 import Board from "./board.js";
 import Database from "./database.js";
 
-const medium = new Database();
-const game = new Board(medium.medium[7]);
-console.log(game);
-game.generateHTML();
+// window.addEventListener("load", () => {
+//   document.querySelector("#home").classList.toggle("hide");
+// });
 
 
+const database = new Database();
+const easy ="ooBoCCooBoooAABoooDDDooEoooooEoooooE"
+const medium = database.medium[0];
+const hard = database.medium[2];
+document.querySelector("#easy").addEventListener("click", () => {
+  document.querySelector("#home").classList.add("hide");
+  document.querySelector("#game").classList.toggle("hide");
+  const game = new Board(easy);
+  game.generateHTML();
+});
+document.querySelector("#medium").addEventListener("click", () => {
+  document.querySelector("#home").classList.toggle("hide");
+  document.querySelector("#game").classList.toggle("hide");
+  const game = new Board(medium);
+  game.generateHTML();
+});
+document.querySelector("#hard").addEventListener("click", () => {
+  document.querySelector("#home").classList.toggle("hide");
+  document.querySelector("#game").classList.toggle("hide");
+  const game = new Board(hard);
+  game.generateHTML();
+});
 
-// play(event) {
-//   //figure out which div it is
-//   const carLetter = event.target.classList[0];
-//   let movingCar;
-//   console.log(event.target.classList[0]);
-//   game.carsArr.forEach(car => {
-//     if (carLetter === car.letter) {
-//       movingCar = car;
-//     }
-//   });
-//   //check orientation
-//   //only move up/down left/right
-//   if (movingCar.orientation === "vertical")  {
-    
-//   }
-//   //press button
-//   //check if can move that way
-//   //let the block move that way
-//   //console.log(Grid.GetRow(event));
-
-
-  
-  
-// };
+// console.log(game);
 
 

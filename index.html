@@ -6,15 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rush Hour Game</title>
   <link rel="stylesheet" href="main.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <h1>YOU'VE BEEN BLOCKED</h1>
-  <div class="board">
+  <div id="home">
+    <h1>YOU'VE BEEN BLOCKED</h1>
+    <h4>Instructions</h4>
+    <p>Welcome! This is game is inspired from the orginal game of Rush Hour! The aim is to get the red block to the green line. The obstacles are other moveable blocks (the blue ones) and walls (dark blue ones). HINT: walls dont move... Its a wall. Click on the block you would like to move and use the arrows on your keyboard to move the blocks. Blocks can only move either left and right or up and down, depending on their orientation. The games range in dificulty. good luck!</p>
+    <button id="easy">Easy</button>
+    <button id="medium">Medium</button>
+    <button id="hard">Hard</button>
   </div>
-  <!-- <script src="car.js" type="module"></script> -->
-  <!-- <script src="board.js" type="module"></script> -->
+  <div id="game" class="hide">
+    <h2>YOU'VE BEEN BLOCKED</h2>
+    <div class="board"></div>
+  </div>
   <script src="game.js" type="module">
-    // import {play} from "./game.js";
   </script>
 </body>
 </html>

@@ -10,7 +10,6 @@ class Board {
   }
 
   setBoard() {
-    //console.log("called");
     const grid = new Array(6).fill(new Array(6));
     for (let i = 0; i < 6; i++) {
       const variable = this.boardString.substring(i * 6, i * 6 + 6);
@@ -88,19 +87,13 @@ class Board {
   }
 
   move(event) {
-    console.log("hello");
-    console.log(this.movingCar.orientation);
 
-    //check orientation
     if (this.movingCar.orientation === "vertical") {
-      //only move up/down left/right
       const col = parseInt(this.movingCar.start.split(" ")[1]);
       const rowstart = parseInt(this.movingCar.start.split(" ")[0]);
       const rowend = parseInt(this.movingCar.end.split(" ")[0]);
 
       if (event.code === "ArrowDown" && rowend !== 5) {
-        //check if can move that way
-        //let the block move that way
         if (this.grid[rowend + 1][col] === "o") {
           this.grid[rowend + 1][col] = this.movingCar.letter;
           this.grid[rowstart][col] = "o";
@@ -110,22 +103,27 @@ class Board {
           console.log("sorry but you cant move there1");
         }
         
-      } else if (event.code === "ArrowUp") {
-
+      } else if (event.code === "ArrowUp" && rowstart !== 0) {
+        if (this.grid[rowstart - 1][col] === "o") {
+          this.grid[rowstart - 1][col] = this.movingCar.letter;
+          this.grid[rowend][col] = "o";
+          this.carsArr = this.makeCarsArr();
+          this.generateHTML();
+        } else {
+          console.log("sorry but you cant move there1");
+        }
       } else {
         console.log("sorry but you cant move there2");
       }
     }
 
     if (this.movingCar.orientation === "horizontal") {
-      //only move up/down left/right
       const colstart = parseInt(this.movingCar.start.split(" ")[1]);
       const colend = parseInt(this.movingCar.end.split(" ")[1]);
       const row = parseInt(this.movingCar.start.split(" ")[0]);
 
       if (event.code === "ArrowRight" && colend !== 5) {
-        //check if can move that way
-        //let the block move that way
+
         if (this.grid[row][colend + 1] === "o") {
           this.grid[row][colend + 1] = this.movingCar.letter;
           this.grid[row][colstart] = "o";
@@ -138,7 +136,6 @@ class Board {
       } else if (event.code === "ArrowLeft" && colstart !== 0 ) {
 
         if (this.grid[row][colstart - 1] === "o") {
-          console.table(this.grid);
           this.grid[row][colstart - 1] = this.movingCar.letter;
           this.grid[row][colend] = "o";
           this.carsArr = this.makeCarsArr();
@@ -154,20 +151,32 @@ class Board {
     const movedCar = document.querySelector(`.${this.movingCar.letter}`);
     this.setMovingCar(movedCar);
     movedCar.focus();
+
+    if (parseInt(this.movingCar.end.split(" ")[1]) === 5 && this.movingCar.type === "main-car") {
+      this.endgame();
+    }
   }
 
   setMovingCar(htmlElement) {
-    //figure out which div it is
     const carLetter = htmlElement.classList[0];
-    console.log(htmlElement.classList[0]);
-    // console.log(this.carsArr);
-    // console.log(this);
+    //console.log(htmlElement.classList[0]);
     this.carsArr.forEach(car => {
       if (carLetter === car.letter) {
         this.movingCar = car;
       }
     });
   };
+
+  endgame() {
+    confetti({
+      particleCount: 300
+    });
+    document.querySelector(".board").innerHTML = `
+    <div class="main-board">
+      <p>WINNER!</p>
+    </div>
+  `;
+  }
 
 }
 
