@@ -19,7 +19,8 @@ h2 {
   font-weight: bold;
   text-shadow: 2px 2px #d4d4d4;
   font-size: 40px;
-  padding: 30px;
+  padding: 20px;
+  padding-bottom: 15px;
 }
 
 .home {
@@ -34,8 +35,8 @@ h2 {
 }
 .home h1 {
   grid-column: 1/6;
-  font-size: 70px;
-  margin-top: 60px;
+  font-size: 60px;
+  margin-top: 0px;
   font-weight: 750;
   color: #94c0c2;
   text-shadow: 2px 2px gray;
@@ -76,9 +77,8 @@ h2 {
 }
 
 .board {
-  padding: 10px;
-  width: 625px;
-  height: 625px;
+  width: 525px;
+  height: 525px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,8 +87,8 @@ h2 {
   display: grid;
   background-image: url("rush-hour-grid.png");
   background-size: contain;
-  height: 600px;
-  width: 600px;
+  height: 500px;
+  width: 500px;
   justify-self: center;
   align-self: center;
   grid-template-columns: repeat(6, 1fr);
