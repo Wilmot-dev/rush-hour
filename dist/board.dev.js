@@ -200,6 +200,9 @@ function () {
         particleCount: 300
       });
       document.querySelector(".board").innerHTML = "\n    <div class=\"main-board\">\n      <p>WINNER!</p>\n    </div>\n  ";
+      setTimeout(function () {
+        location.reload(true);
+      }, 4000);
     }
   }]);
 

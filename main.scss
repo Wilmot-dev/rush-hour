@@ -22,11 +22,7 @@ h2 {
   padding: 30px;
 }
 
-.hide {
-  display: none;
-}
-
-#home {
+.home {
   font-family: Arial, Helvetica, sans-serif;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -74,6 +70,10 @@ h2 {
     background-color: #1d3557;
   }
 
+}
+
+.hide {
+  display: none;
 }
 
 .board {

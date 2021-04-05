@@ -176,6 +176,7 @@ class Board {
       <p>WINNER!</p>
     </div>
   `;
+  setTimeout(() => {location.reload(true)}, 4000);
   }
 
 }

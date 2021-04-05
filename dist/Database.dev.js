@@ -18,31 +18,53 @@ function () {
     _classCallCheck(this, Database);
 
     this.database = [];
+    this.easy = this.setEasy();
     this.medium = this.setMedium();
+    this.hard = this.setHard();
   }
 
   _createClass(Database, [{
-    key: "push",
-    value: function push(item) {
-      this.database.push(item);
+    key: "setEasy",
+    value: function setEasy() {
+      var easyArr = [];
+      easyArr.push("ooBoCCooBoooAABoooDDDooEoooooEoooooE");
+      easyArr.push("ooBoooooBooCooBAACDDDEoCoooEFFoooooo");
+      easyArr.push("BCDDEoBCFFEoAAGHooooGHIoooJHIoooJooo");
+      easyArr.push("ooooooooBoCoAABoCDEEEoCDFGHoIIFGHoJJ");
+      easyArr.push("ooBBBoCCCoDoAAooDEFFFoDEGoHoIIGoHoJJ");
+      easyArr.push("ooooooooBooCAABooCDoBEEFDGGHIFJJJHIF");
+      easyArr.push("ooBBCooDDDCEooAACEooFGGGooFHIIoooHJJ");
+      var randomboard = Math.floor(Math.random() * 7);
+      return easyArr[randomboard];
     }
   }, {
     key: "setMedium",
     value: function setMedium() {
-      this.database.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
-      this.database.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
-      this.database.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
-      this.database.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
-      this.database.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
-      this.database.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
-      this.database.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
-      this.database.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
-      this.database.push("BBBCCNDDoxMNJAAoMOJoKFFOGGKLooxIILoo");
-      this.database.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLHH");
-      this.database.push("ooBBoxDDDKooAAJKoMooJEEMIFFLooIGGLox");
-      this.database.push("oxCCMNDDDKMNAAJKooooJEEoIFFLooIGGLox");
-      this.database.push("oxCCMNDDDKMNAAJKooooJLEEIFFLooIGGHHo");
-      return this.database;
+      var mediumArr = [];
+      mediumArr.push("oBCCDEoBFGDEAAFGHIJoKLHIJoKLoIJMMMNN");
+      mediumArr.push("BooCooBooCDDBAAEooooFEGGooFHHIooFooI");
+      mediumArr.push("BoCCCoBDDDEFAAGHEFIIGHEFoooJKKoLLJoo");
+      mediumArr.push("BBoCoDEFoCoDEFAAGHIJJKGHIoLKGoIoLMMo");
+      mediumArr.push("BCCDooBooDEEBAAFooooGFHHooGIIJooGooJ");
+      mediumArr.push("BBBCDEFGGCDEFoAADoHHIooooJIoKKoJLLMM");
+      mediumArr.push("BCCDDDBoEEFoAAGoFoHHGIIJoKKLoJMMMLoJ");
+      var randomboard = Math.floor(Math.random() * 7);
+      return mediumArr[randomboard];
+    }
+  }, {
+    key: "setHard",
+    value: function setHard() {
+      var hardArr = [];
+      hardArr.push("IBBxooIooLDDJAALooJoKEEMFFKooMGGHHHM");
+      hardArr.push("BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN");
+      hardArr.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLox");
+      hardArr.push("ooBBMxDDDKMoAAJKoNooJEENIFFLooIGGLHH");
+      hardArr.push("oxCCMoDDDKMoAAJKooooJLEEIFFLoNIGGoxN");
+      hardArr.push("oooJLxCCCJLoHAAKooHoIKDDooIEEMoFFoxM");
+      hardArr.push("oooJxoCCCJLoHAAKLoHoIKDDooIEEMoFFoxM");
+      hardArr.push("BBBKCCDDoKoLIAAKoLIoJEEMFFJooMooxoHH");
+      var randomboard = Math.floor(Math.random() * 8);
+      return hardArr[randomboard];
     }
   }]);
 
